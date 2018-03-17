@@ -1,0 +1,16 @@
+# General
+.env
+
+# Database
+/.pgdata
+
+# Backend
+/backend/**/__pycache__
+
+# Frontend
+/frontend/node_modules
+/frontend/build
+
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*

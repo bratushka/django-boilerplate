@@ -1,0 +1,56 @@
+---
+version: "3"
+
+services:
+  boiler:
+    build: nginx
+    container_name: boiler
+    depends_on:
+      - boiler-backend
+      - boiler-frontend
+    env_file:
+      - .env
+    networks:
+      - boiler
+    ports:
+      - 8000:8000
+    tty: true
+    volumes:
+      - ./nginx:/code/
+
+  boiler-frontend:
+    build: frontend
+    container_name: boiler-frontend
+    env_file:
+      - .env
+    networks:
+      - boiler
+    tty: true
+    volumes:
+      - ./frontend:/code/
+
+  boiler-backend:
+    build: backend
+    container_name: boiler-backend
+    depends_on:
+      - boiler-db
+    env_file:
+      - .env
+    networks:
+      - boiler
+    tty: true
+    volumes:
+      - ./backend:/code/
+
+  boiler-db:
+    container_name: boiler-db
+    env_file:
+      - .env
+    image: postgres:10-alpine
+    networks:
+      - boiler
+    volumes:
+      - .pgdata:/var/lib/postgresql/data
+
+networks:
+  boiler:
