@@ -14,7 +14,6 @@ services:
       - boiler
     ports:
       - 8000:8000
-    tty: true
     volumes:
       - ./nginx:/code/
 
@@ -25,7 +24,6 @@ services:
       - .env
     networks:
       - boiler
-    tty: true
     volumes:
       - ./frontend:/code/
 
