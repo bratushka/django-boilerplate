@@ -1,5 +1,7 @@
 FROM python:alpine3.7
 
+ENV ENV=dev
+
 RUN apk add --no-cache \
     gcc \
     musl-dev \

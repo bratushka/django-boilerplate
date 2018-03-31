@@ -4,6 +4,9 @@
 # Database
 /.pgdata
 
+# Shared data
+/.shared
+
 # Backend
 /backend/**/__pycache__
 

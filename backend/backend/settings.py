@@ -76,10 +76,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASS'],
-        'HOST': os.environ['DB_HOST'],
+        'NAME': os.environ.get('DB_NAME', None),
+        'USER': os.environ.get('DB_USER', None),
+        'PASSWORD': os.environ.get('DB_PASS', None),
+        'HOST': os.environ.get('DB_HOST', None),
         'PORT': '',
     }
 }
@@ -122,3 +122,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static-files/'
+
+STATIC_ROOT = '/shared/static-files/'

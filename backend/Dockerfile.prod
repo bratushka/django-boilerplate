@@ -1,0 +1,34 @@
+FROM python:alpine3.7
+
+ENV ENV=prod
+
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    python3-dev \
+    postgresql-dev
+
+WORKDIR /code
+
+COPY ./requirements.txt .
+RUN pip install --upgrade pip wheel setuptools
+RUN pip install -r requirements.txt
+
+RUN apk add --no-cache linux-headers
+RUN pip install uwsgi
+
+RUN apk del gcc \
+    musl-dev \
+    python3-dev \
+    linux-headers
+
+CMD uwsgi \
+    --chdir=/code \
+    --module=backend.wsgi:application \
+    --master \
+    --socket=/shared/django.sock \
+    --chmod-socket=666 \
+    --processes=5 \
+    --harakiri=10 \
+    --max-requests=1000 \
+    --vacuum

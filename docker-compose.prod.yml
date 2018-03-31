@@ -1,0 +1,65 @@
+---
+version: "3.5"
+
+services:
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile.prod
+    container_name: nginx
+    depends_on:
+      - backend
+      - frontend
+    env_file:
+      - .env
+    networks:
+      - internal
+    ports:
+      - 80:80
+    volumes:
+      - ./.shared/:/shared/
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile.prod
+    container_name: frontend
+    env_file:
+      - .env
+    networks:
+      - internal
+    volumes:
+      - ./.shared/:/shared/
+
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile.prod
+    container_name: backend
+    depends_on:
+      - db
+    env_file:
+      - .env
+    networks:
+      - internal
+    tty: true
+    volumes:
+      - ./backend/:/code/
+      - ./.shared/:/shared/
+
+  db:
+    container_name: db
+    env_file:
+      - .env
+    image: postgres:10-alpine
+    networks:
+      - internal
+    volumes:
+      - .pgdata/:/var/lib/postgresql/data/
+      - ./.shared/:/shared/
+
+networks:
+  internal:
+
+volumes:
+  .shared:
