@@ -1,7 +1,5 @@
 FROM python:alpine3.7
 
-ENV ENV=prod
-
 RUN apk add --no-cache \
     gcc \
     musl-dev \
@@ -22,11 +20,13 @@ RUN apk del gcc \
     python3-dev \
     linux-headers
 
+COPY . .
+
 CMD uwsgi \
     --chdir=/code \
     --module=backend.wsgi:application \
     --master \
-    --socket=/shared/django.sock \
+    --socket=/sockets/django.sock \
     --chmod-socket=666 \
     --processes=5 \
     --harakiri=10 \

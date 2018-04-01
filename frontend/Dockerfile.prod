@@ -6,4 +6,4 @@ COPY . .
 RUN yarn
 RUN yarn build
 
-CMD mv build /shared/frontend
+CMD mv build /static/frontend
