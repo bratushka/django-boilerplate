@@ -11,7 +11,7 @@ services:
       - backend
       - frontend
     env_file:
-      - .env
+      - env/prod.env
     networks:
       - internal
     ports:
@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile.prod
     container_name: frontend
     env_file:
-      - .env
+      - env/prod.env
     networks:
       - internal
     volumes:
@@ -40,7 +40,7 @@ services:
     depends_on:
       - db
     env_file:
-      - .env
+      - env/prod.env
     networks:
       - internal
     tty: true
@@ -51,7 +51,7 @@ services:
   db:
     container_name: db
     env_file:
-      - .env
+      - env/prod.env
     image: postgres:10-alpine
     networks:
       - internal
