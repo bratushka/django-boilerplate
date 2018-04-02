@@ -1,5 +1,14 @@
 # Django Boilerplate
 
+## Development Environment
+
+Main terminal:
+
+```bash
+docker-compose build
+docker-compose up
+```
+
 ## Production Environment
 
 Main terminal:

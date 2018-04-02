@@ -1,11 +1,9 @@
-# General
-.env
-
 # Database
 /.pgdata
 
 # Shared data
-/.shared
+/.sockets
+/.static
 
 # Backend
 /backend/**/__pycache__
